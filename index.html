@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Achila Thilakarathna | Automation & Mechatronics Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --primary: #1658a3;
+      --primary-soft: #dcfce7;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --navy-bg: #020617;
+      --navy-card: #0b1220;
+
+      --deep-blue-bg: #02032c;
+      --deep-blue-bg-soft: #08064e;
+      --deep-blue-card: #07065f;
+      --deep-blue-card-alt: #05062e;
+      --deep-blue-border: #1b10b9;
+      --deep-blue-accent: #2222c5;
+      --deep-blue-accent-soft: #bbbcf7;
+      --deep-blue-text-main: #ececfd;
+      --deep-blue-text-muted: #a7a7f3;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .hero, .projects-section, .info-section, .contact-section {
+      scroll-margin-top: 110px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #bbbcf7 0, #8a8afd 35%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      padding-top: calc(24px + env(safe-area-inset-top, 0px));
+      padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      justify-content: center;
+      scroll-behavior: smooth;
+    }
+
+    .page-wrapper { width: 100%; max-width: 1100px; margin: auto; }
+
+    .nav {
+      position: sticky;
+      top: calc(16px + env(safe-area-inset-top, 0px));
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      margin-bottom: 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #d1ddfa 0%, #c2bbf7 40%, #b2a7f3 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(33, 16, 185, 0.35);
+      box-shadow: 0 10px 30px rgba(38, 22, 163, 0.18);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .nav-links { display: flex; gap: 18px; font-size: 0.95rem; flex-wrap: wrap; }
+
+    .nav-links a {
+      position: relative;
+      text-decoration: none;
+      color: var(--text-muted);
+      padding-bottom: 4px;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, #161da3, #3522c5);
+      border-radius: 999px;
+      transition: width 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text-main); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { color: var(--text-main); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 32px;
+      align-items: center;
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .hero.visible { opacity: 1; transform: translateY(0); }
+
+    .hero-left { display: flex; flex-direction: column; gap: 20px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--primary-soft);
+      color: #161a65;
+      padding: 6px 12px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #2822c5;
+      box-shadow: 0 0 10px rgba(34, 34, 197, 0.7);
+    }
+
+    .hero-name { font-size: clamp(2.2rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; }
+    .hero-role { font-size: 1.1rem; color: var(--text-muted); margin-top: 4px; }
+    .hero-about { font-size: 0.98rem; line-height: 1.6; color: var(--text-muted); max-width: 600px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+
+    .btn {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 10px 25px rgba(48, 22, 163, 0.35); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(22, 34, 163, 0.45); }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+    .btn-ghost:hover { background: #f3f3f6; transform: translateY(-1px); }
+
+    .hero-right { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+    .profile-card {
+      width: 100%;
+      max-width: 260px;
+      aspect-ratio: 3 / 4;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #bbc2f7, #e5e0fe);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .profile-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-right-note { font-size: 0.85rem; color: var(--text-muted); text-align: center; max-width: 260px; }
+
+    .projects-section {
+      background: radial-gradient(circle at top left, #06105f 0, #03022c 60%);
+      border-radius: 18px;
+      padding: 28px 32px 32px;
+      box-shadow: 0 18px 45px rgba(6, 14, 78, 0.85);
+      border: 1px solid rgba(24, 16, 185, 0.55);
+      margin-bottom: 40px;
+      color: var(--deep-blue-text-main);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .projects-section.visible { opacity: 1; transform: translateY(0); }
+
+    .projects-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+    .projects-title { font-size: 1.5rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .projects-subtitle { font-size: 0.95rem; color: var(--deep-blue-text-muted); max-width: 420px; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--deep-blue-card);
+      color: var(--deep-blue-text-main);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 35px rgba(14, 6, 78, 0.8);
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      border: 1px solid rgba(36, 16, 185, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 50px rgba(10, 4, 120, 0.95);
+      border-color: rgba(86, 52, 211, 0.9);
+      background: var(--deep-blue-card-alt);
+    }
+
+    .project-card-image {
+      height: 150px;
+      background: linear-gradient(135deg, #1b0478, #14064e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(47, 16, 185, 0.6);
+      font-size: 2.2rem;
+    }
+
+    .project-card-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .project-card-body { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .project-card-title { font-size: 0.98rem; font-weight: 600; color: var(--deep-blue-accent-soft); }
+    .project-card-desc { font-size: 0.85rem; color: var(--deep-blue-text-muted); }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(19, 6, 95, 0.4);
+      color: var(--deep-blue-text-main);
+      border: 1px solid rgba(73, 52, 211, 0.7);
+      white-space: nowrap;
+    }
+
+    .pill-tech { background: rgba(8, 5, 46, 0.95); color: var(--deep-blue-text-main); border-color: rgba(74, 79, 222, 0.9); }
+
+    .project-card-footer { margin-top: 8px; font-size: 0.8rem; }
+    .project-card-footer a { color: #7e6ee7; text-decoration: none; }
+    .project-card-footer a:hover { text-decoration: underline; }
+
+    .projects-pagination {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--deep-blue-text-muted);
+    }
+
+    .projects-pagination a { color: #a8a7f3; text-decoration: none; }
+    .projects-pagination a:hover { text-decoration: underline; color: #6e7ee7; }
+
+    .info-section {
+      background: radial-gradient(circle at top left, #060a4e 0, #07022c 60%);
+      border-radius: 18px;
+      padding: 28px 32px 32px;
+      box-shadow: 0 18px 45px rgba(11, 6, 78, 0.85);
+      border: 1px solid rgba(19, 16, 185, 0.5);
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      color: var(--deep-blue-text-main);
+    }
+
+    .info-section.visible { opacity: 1; transform: translateY(0); }
+    .info-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .info-title { font-size: 1.5rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .info-subtitle { font-size: 0.95rem; color: var(--deep-blue-text-muted); max-width: 360px; }
+
+    .info-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 28px; margin-top: 8px; }
+    .info-tabs { display: flex; flex-direction: column; gap: 10px; }
+
+    .tab-button {
+      border-radius: 999px;
+      padding: 10px 16px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      background: rgba(15, 23, 42, 0.35);
+      color: var(--deep-blue-text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .tab-button span.label { display: inline-flex; align-items: center; gap: 8px; }
+    .tab-indicator { font-size: 0.8rem; }
+
+    .tab-button:hover {
+      background: rgba(16, 24, 185, 0.28);
+      border-color: rgba(44, 16, 185, 0.85);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(24, 16, 185, 0.5);
+      color: var(--deep-blue-text-main);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(135deg, #1630a3, #2235c5);
+      color: #ececfd;
+      border-color: rgba(34, 45, 197, 0.95);
+      box-shadow: 0 14px 32px rgba(34, 72, 197, 0.7);
+    }
+
+    .info-content-wrapper { position: relative; min-height: 260px; }
+
+    .tab-content {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      color: var(--deep-blue-text-main);
+    }
+
+    .tab-content.active { position: relative; opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+    .tab-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; color: var(--deep-blue-accent-soft); }
+    .tab-description { font-size: 0.95rem; color: var(--deep-blue-text-muted); margin-bottom: 14px; }
+
+    ul.custom-list { list-style: none; padding-left: 0; font-size: 0.95rem; color: var(--deep-blue-text-main); }
+    ul.custom-list li { margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+    ul.custom-list li::before { content: "•"; color: var(--deep-blue-accent); margin-top: 2px; }
+    ul.custom-list li a { color: var(--deep-blue-accent-soft); text-decoration: none; }
+    ul.custom-list li a:hover { color: #6e76e7; text-decoration: underline; }
+
+    .muted { font-size: 0.9rem; color: var(--deep-blue-text-muted); }
+
+    .exp-block { margin-bottom: 16px; }
+    .exp-role { font-weight: 700; color: var(--deep-blue-text-main); }
+    .exp-company { font-size: 0.9rem; color: var(--deep-blue-accent-soft); }
+    .exp-dates { font-size: 0.8rem; color: var(--deep-blue-text-muted); margin-bottom: 6px; }
+
+    .exp-subtabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+
+    .exp-subtab-button {
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      background: rgba(15, 23, 42, 0.35);
+      color: var(--deep-blue-text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .exp-subtab-button:hover {
+      background: rgba(16, 24, 185, 0.28);
+      border-color: rgba(44, 16, 185, 0.85);
+      color: var(--deep-blue-text-main);
+    }
+
+    .exp-subtab-button.active {
+      background: linear-gradient(135deg, #1630a3, #2235c5);
+      color: #ececfd;
+      border-color: rgba(34, 45, 197, 0.95);
+    }
+
+    .exp-pages-wrapper { position: relative; }
+    .exp-page { display: none; }
+    .exp-page.active { display: block; }
+
+    .exp-pagination {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--deep-blue-text-muted);
+    }
+
+    .exp-pagination a { color: #a8a7f3; text-decoration: none; cursor: pointer; }
+    .exp-pagination a:hover { text-decoration: underline; color: #6e7ee7; }
+
+    .proj-subtabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+
+    .proj-subtab-button {
+      border-radius: 999px;
+      padding: 8px 16px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      background: rgba(15, 23, 42, 0.35);
+      color: var(--deep-blue-text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .proj-subtab-button:hover {
+      background: rgba(16, 24, 185, 0.28);
+      border-color: rgba(44, 16, 185, 0.85);
+      color: var(--deep-blue-text-main);
+    }
+
+    .proj-subtab-button.active {
+      background: linear-gradient(135deg, #1630a3, #2235c5);
+      color: #ececfd;
+      border-color: rgba(34, 45, 197, 0.95);
+    }
+
+    .proj-pages-wrapper { position: relative; }
+    .proj-page { display: none; }
+    .proj-page.active { display: block; }
+
+    .proj-pagination {
+      margin-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--deep-blue-text-muted);
+    }
+
+    .proj-pagination a { color: #a8a7f3; text-decoration: none; cursor: pointer; }
+    .proj-pagination a:hover { text-decoration: underline; color: #6e7ee7; }
+
+    .contact-section {
+      background: radial-gradient(circle at top left, #06225f 0, #02032c 65%);
+      border-radius: 18px;
+      padding: 28px 32px 30px;
+      box-shadow: 0 18px 45px rgba(6, 23, 78, 0.9);
+      border: 1px solid rgba(34, 59, 197, 0.65);
+      margin-bottom: 20px;
+      color: var(--deep-blue-text-main);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .contact-section.visible { opacity: 1; transform: translateY(0); }
+    .contact-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .contact-title { font-size: 1.6rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .contact-subtitle { font-size: 0.95rem; color: #a7b4f3; max-width: 380px; }
+
+    .contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr); gap: 22px; align-items: stretch; }
+    .contact-main { font-size: 0.95rem; color: var(--deep-blue-text-main); }
+    .contact-main p { margin-bottom: 10px; }
+
+    .contact-highlight {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(6, 12, 78, 0.8);
+      border: 1px solid rgba(45, 56, 212, 0.7);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--deep-blue-text-main);
+    }
+
+    .contact-highlight span.icon { font-size: 1.1rem; }
+
+    .contact-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+
+    .contact-card {
+      background: rgba(6, 38, 78, 0.9);
+      border-radius: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 154, 184, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      color: var(--deep-blue-text-main);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(14, 4, 120, 0.95);
+      border-color: rgba(34, 48, 197, 0.9);
+      background: rgba(12, 4, 120, 0.95);
+    }
+
+    .contact-card-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a5b4fc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-card-label span.icon { font-size: 1rem; }
+    .contact-card-value, .contact-card-value a { color: var(--deep-blue-text-main); text-decoration: none; word-break: break-all; }
+    .contact-card-value a:hover { text-decoration: underline; color: #a7adf3; }
+
+    .contact-footer { margin-top: 14px; font-size: 0.85rem; color: #9e9caf; text-align: right; }
+
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+    @media (max-width: 1000px) {
+      .info-layout, .contact-grid { grid-template-columns: 1fr; }
+      .info-header, .contact-header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 16px; }
+      .hero { grid-template-columns: 1fr; padding: 20px; }
+      .hero-right { order: -1; }
+      .nav { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .projects-section, .info-section, .contact-section { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="nav">
+      <div class="nav-title">Achila Thilakarathna</div>
+      <nav class="nav-links">
+        <a href="#top" class="active">Home</a>
+        <a href="#profile-section">Experience & Education</a>
+        <a href="#projects-section">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top" class="hero">
+      <section class="hero-left">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Automation & Mechatronics Engineer</span>
+        </div>
+
+        <div>
+          <h1 class="hero-name">Achila Thilakarathna</h1>
+          <p class="hero-role">
+            Automation Engineer Intern | PLC & Embedded Systems | Robotics (ROS2) | IoT & PCB Design
+          </p>
+        </div>
+
+        <section id="about" class="hero-about">
+          First Class BSc (Hons) graduate in Science and Technology, specialized in Mechatronics Engineering, from
+          Uva Wellassa University of Sri Lanka (CGPA 3.77/4.00). Strong multidisciplinary foundation across mechanical
+          systems, electronics, electrical systems, control systems, industrial automation, embedded systems, pneumatics,
+          and robotics. Hands-on experience with PLC programming, AGV systems, PCB design, CAD/CAM, and IoT solutions,
+          backed by proven analytical and problem-solving skills. Adaptable and detail-oriented, with the ability to
+          contribute effectively across automation, robotics, manufacturing, energy, and industrial technology sectors.
+        </section>
+
+        <div class="hero-actions">
+          <a href="./Achila_Thilakarathna_CV_Updated.docx" class="btn btn-primary" target="_blank">
+            ⬇ Download CV
+          </a>
+          <a href="#contact" class="btn btn-ghost">
+            ✉ Contact Me
+          </a>
+        </div>
+      </section>
+
+      <aside class="hero-right">
+        <div class="profile-card">
+          <img src="profile.jpeg" alt="Achila Thilakarathna portrait" />
+        </div>
+        <p class="hero-right-note"></p>
+      </aside>
+    </main>
+
+    <!-- EXPERIENCE, EDUCATION, SKILLS & CERTIFICATIONS — moved up so recruiters see this first -->
+    <section id="profile-section" class="info-section">
+      <div class="info-header">
+        <div><h2 class="info-title">Experience & Education</h2></div>
+      </div>
+
+      <div class="info-layout">
+        <div class="info-tabs">
+          <button class="tab-button active" data-tab-target="experience">
+            <span class="label">🏭 Experience</span><span class="tab-indicator">●</span>
+          </button>
+          <button class="tab-button" data-tab-target="education">
+            <span class="label">🏫 Education</span><span class="tab-indicator">●</span>
+          </button>
+          <button class="tab-button" data-tab-target="skills">
+            <span class="label">⚙️ Skills</span><span class="tab-indicator">●</span>
+          </button>
+          <button class="tab-button" data-tab-target="certifications">
+            <span class="label">🎓 Certifications</span><span class="tab-indicator">●</span>
+          </button>
+        </div>
+
+        <div class="info-content-wrapper">
+          <!-- Experience -->
+          <div id="tab-experience" class="tab-content active">
+            <h3 class="tab-title">Professional Experience</h3>
+
+            <div class="exp-subtabs">
+              <button class="exp-subtab-button active" data-exp-target="mas">MAS Intimates Linear Clothing</button>
+              <button class="exp-subtab-button" data-exp-target="exceltech">ExcelTech OU (Pvt) Ltd.</button>
+            </div>
+
+            <div class="exp-pages-wrapper">
+              <div id="exp-page-mas" class="exp-page active">
+                <div class="exp-block">
+                  <div class="exp-role">Automation Engineer (Intern)</div>
+                  <div class="exp-company">MAS Intimates Linear Clothing, Unichela (Pvt) Ltd.</div>
+                  <div class="exp-dates">March 2026 - Present</div>
+                  <ul class="custom-list">
+                    <li><div>Maintained, troubleshot and improved automated manufacturing machinery in a production environment.</div></li>
+                    <li><div>Developed and modified PLC programs for automation, including AGV and machine-control applications.</div></li>
+                    <li><div>Troubleshot pneumatic and electromechanical systems used in manufacturing machinery.</div></li>
+                    <li><div>Worked with stepper-motor and PLC-based motion-control systems for automated machinery.</div></li>
+                    <li><div>Supported AGV modifications and RFID-based positioning/navigation, including PLC logic updates.</div></li>
+                    <li><div>Maintained and troubleshot solar-powered systems on golf carts, and worked with fiber-optic audio connections during equipment integration.</div></li>
+                    <li><div>Supported machine design and fabrication using Fusion 360 and RDWorks; gained hands-on lathe and milling exposure.</div></li>
+                    <li><div>Contributed to 5S, workplace organization and engineering component management.</div></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div id="exp-page-exceltech" class="exp-page">
+                <div class="exp-block">
+                  <div class="exp-role">Hardware Department Intern</div>
+                  <div class="exp-company">ExcelTech OU (Pvt) Ltd.</div>
+                  <div class="exp-dates">June 2025 - December 2025</div>
+                  <ul class="custom-list">
+                      <li><div>Designed schematics and PCB layouts using Altium Designer, including multilayer PCB development, custom libraries and DBLib-based component management.</div></li>
+                      <li><div>Performed PCB assembly, SMD/SMT/THT soldering, hardware bring-up and board-level troubleshooting across various component packages.</div></li>
+                      <li><div>Performed hardware validation, sensor integration and troubleshooting alongside QA teams.</div></li>
+                      <li><div>Developed embedded firmware for STM32, TI and ESP32/ESP32-C3 platforms, using STM32CubeIDE, Code Composer Studio, TI UniFlash and Arduino IDE.</div></li>
+                      <li><div>Implemented and debugged UART, I²C, SPI and RS-485 communication interfaces and integrated sensors and external hardware.</div></li>
+                      <li><div>Performed hardware validation, functional testing, sensor integration and troubleshooting using oscilloscopes, logic analyzers and other debugging equipment.</div></li>
+                      <li><div>Supported QA testing and product validation, identifying hardware/software integration issues and improving system reliability.</div></li>
+                      <li><div>Contributed to the development and testing of embedded, wireless and actuator-control systems.</div></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="exp-pagination">
+              <span id="exp-page-indicator">Page 1 of 2 — MAS Intimates Linear Clothing</span>
+              <a href="#" id="exp-next-link">Next: ExcelTech OU →</a>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div id="tab-education" class="tab-content">
+            <h3 class="tab-title">Education</h3>
+            <ul class="custom-list">
+              <li>
+                <div>
+                  <strong>BSc (Hons) in Science and Technology, specialized in Mechatronics — First Class</strong><br />
+                  Uva Wellassa University of Sri Lanka
+                  <br /><span class="muted">Cumulative GPA: 3.77 / 4.00</span>
+                </div>
+              </li>
+            </ul>
+            <h3 class="tab-title" style="margin-top: 18px;">Leadership & Activities</h3>
+            <ul class="custom-list">
+              <li><div>Chair, IEEE RAS Chapter — Uva Wellassa University (2024/2025)</div></li>
+              <li><div>Vice Captain, Men's Basketball — Uva Wellassa University (2023/2024)</div></li>
+              <li><div>Secretary, Antonian Media Unit — St. Anthony's College Kandy (2018/2019)</div></li>
+            </ul>
+          </div>
+
+          <!-- Skills -->
+          <div id="tab-skills" class="tab-content">
+            <h3 class="tab-title">Technical Skills</h3>
+            <ul class="custom-list">
+              <li><div><strong>Programming Languages</strong><br />C, C++, Python, Embedded C</div></li>
+              <li><div><strong>PLC & Industrial Automation</strong><br />PLC Programming (Xinje XD3), Ladder Logic, AGV Systems, RFID Integration, Pneumatic Systems</div></li>
+              <li><div><strong>Embedded Systems & Firmware</strong><br />STM32 (STM32CubeIDE), ESP32, TI Microcontrollers (UniFlash), Fiber Optic Communication</div></li>
+              <li><div><strong>Robotics & Control</strong><br />ROS2, LabVIEW, Motion Control, SLAM, Stepper Motor Control</div></li>
+              <li><div><strong>PCB & Hardware Design</strong><br />Altium Designer, Fusion 360 Electronics, SMD/SMT/THT Soldering</div></li>
+              <li><div><strong>CAD/CAM & Mechanical Design</strong><br />SolidWorks, Solid Edge, Fusion 360 (Design & CAM), AutoCAD, Revit</div></li>
+              <li><div><strong>Renewable Energy & Maintenance</strong><br />Solar PV system maintenance and troubleshooting</div></li>
+              <li><div><strong>IoT & Software</strong><br />Web dashboards, React, Database Management Systems, Python for automation & data processing</div></li>
+              <li><div><strong>Manufacturing Exposure</strong><br />CNC operations, lathe and milling machines</div></li>
+            </ul>
+          </div>
+
+          <!-- Certifications -->
+          <div id="tab-certifications" class="tab-content">
+            <h3 class="tab-title">Certifications & Short Courses</h3>
+            <p class="tab-description">Click any name below to open the certificate where available.</p>
+            <ul class="custom-list">
+              <li><div><strong><a href="https://www.coursera.org/account/accomplishments/verify/W6KFZJBW2DK4" target="_blank" rel="noopener noreferrer">Rapid Prototyping in Engineering Design – Coursera</a></strong></div></li>
+              <li><div><strong>Certificate in Graphic Designing</strong><br />The Open University of Sri Lanka</div></li>
+              <li><div><strong>Short Course on Revit Architecture</strong><br />The Open University of Sri Lanka</div></li>
+              <li><div><strong>Short Course on Effective Use of AutoCAD for Engineering Drawings</strong><br />The Open University of Sri Lanka</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS (categorized, paged like Experience) -->
+    <section id="projects-section" class="projects-section">
+      <div class="projects-header">
+        <div><h2 class="projects-title">Projects</h2></div>
+        <p class="projects-subtitle">Automation, electronics, CAD/CAM and software work, grouped by category.</p>
+      </div>
+
+      <div class="proj-subtabs">
+        <button class="proj-subtab-button active" data-proj-target="automation">Automation & Robotics</button>
+        <button class="proj-subtab-button" data-proj-target="electronics">Electronics & Embedded</button>
+        <button class="proj-subtab-button" data-proj-target="cad">CAD/CAM & Mechanical Design</button>
+        <button class="proj-subtab-button" data-proj-target="software">Software & Web</button>
+      </div>
+
+      <div class="proj-pages-wrapper">
+        <div id="proj-page-automation" class="proj-page active">
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-card-image"><img src="agv.png" alt="AGV Ladder Logic & Navigation" onerror="this.parentElement.textContent='⚙️';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">AGV Speed, Steering & RFID Navigation</h3>
+                <p class="project-card-desc">
+                  Ladder logic on Xinje XD3-32RT PLCs for AGV speed control, steering, and RFID-based positioning and navigation on the production floor.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">PLC (Xinje XD3)</span>
+                  <span class="pill pill-tech">Ladder Logic</span>
+                  <span class="pill pill-tech">RFID</span>
+                  <span class="pill pill-tech">AGV Systems</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="slam-rover.png" alt="Agricultural Rover SLAM" onerror="this.parentElement.textContent='🤖';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Monocular SLAM for an Agricultural Rover</h3>
+                <p class="project-card-desc">
+                  Vision-based SLAM system built on ROS 2, combining monocular vision and encoder odometry for real-time mapping, navigation and obstacle avoidance.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">ROS2</span>
+                  <span class="pill pill-tech">SLAM</span>
+                  <span class="pill pill-tech">Computer Vision</span>
+                  <span class="pill pill-tech">Python</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="labview-arm.png" alt="LabVIEW 3-DOF Robotic Arm" onerror="this.parentElement.textContent='🦾';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">LabVIEW-Controlled 3-DOF Robotic Arm</h3>
+                <p class="project-card-desc">
+                  LabVIEW GUI with dial/slider joint-level control for precise motion control and testing of a 3-degree-of-freedom robotic arm.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">LabVIEW</span>
+                  <span class="pill pill-tech">Motion Control</span>
+                  <span class="pill pill-tech">Robotics</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="obstacle-robot.png" alt="Autonomous Obstacle-Avoiding Robot" onerror="this.parentElement.textContent='🚧';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Autonomous Obstacle-Avoiding Robot</h3>
+                <p class="project-card-desc">
+                  Sensor-driven autonomous platform that detects and navigates around obstacles in real time, alongside a Bluetooth-controlled robotic vehicle build.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Embedded C</span>
+                  <span class="pill pill-tech">Sensors</span>
+                  <span class="pill pill-tech">Bluetooth</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="lap-laying-machine.png" alt="Heated Elastic Lap-Laying Machine" onerror="this.parentElement.textContent='🧵';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Heated Elastic Lap-Laying Machine (MAS)</h3>
+                <p class="project-card-desc">
+                  New machine implementation to lap-lay heated elastic so it doesn't stick or tangle back on itself, replacing a manual process and saving production time.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Machine Design</span>
+                  <span class="pill pill-tech">Automation</span>
+                  <span class="pill pill-tech">Process Improvement</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div id="proj-page-electronics" class="proj-page">
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-card-image"><img src="esp32-controller.png" alt="ESP32 WiFi Output Controller" onerror="this.parentElement.textContent='📡';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">ESP32 Wi-Fi Output Controller</h3>
+                <p class="project-card-desc">
+                  WebSocket-driven ESP32 controller managing 15 digital outputs for motors and lasers, with a self-hosted web interface for real-time control.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">ESP32</span>
+                  <span class="pill pill-tech">WebSockets</span>
+                  <span class="pill pill-tech">IoT</span>
+                  <span class="pill pill-tech">Embedded C</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="energy-socket.png" alt="Smart Energy Monitoring Socket" onerror="this.parentElement.textContent='🔌';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">IoT Smart Energy Monitoring Socket</h3>
+                <p class="project-card-desc">
+                  Custom PCB (Altium Designer) paired with an ESP32 for real-time power consumption tracking and IoT-based energy analysis.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Altium Designer</span>
+                  <span class="pill pill-tech">PCB Design</span>
+                  <span class="pill pill-tech">ESP32</span>
+                  <span class="pill pill-tech">IoT</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="wearable-imu.png" alt="Wearable Tech with IMU" onerror="this.parentElement.textContent='⌚';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Wearable Tech with IMU Motion Sensing</h3>
+                <p class="project-card-desc">
+                  Bare-metal STM32 firmware for a wearable device, handling IMU data acquisition and motion sensing without an RTOS or HAL abstraction layer.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">STM32</span>
+                  <span class="pill pill-tech">Bare-Metal C</span>
+                  <span class="pill pill-tech">IMU</span>
+                  <span class="pill pill-tech">Wearables</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="fridge-reverse-engineering.png" alt="Refrigerator PCB Reverse Engineering" onerror="this.parentElement.textContent='🔍';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Refrigerator Control Board Reverse Engineering</h3>
+                <p class="project-card-desc">
+                  Traced and reverse-engineered a refrigerator's control circuit board to understand its component layout and control logic for fault diagnosis.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Reverse Engineering</span>
+                  <span class="pill pill-tech">Circuit Analysis</span>
+                  <span class="pill pill-tech">PCB</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="thermal-camera-module.png" alt="Thermal Imaging Camera Module" onerror="this.parentElement.textContent='🌡️';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Thermal Imaging Camera Module</h3>
+                <p class="project-card-desc">
+                  Designed a camera module for thermal imaging, covering sensor interfacing and hardware layout for the imaging pipeline.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Thermal Imaging</span>
+                  <span class="pill pill-tech">Hardware Design</span>
+                  <span class="pill pill-tech">Sensor Interfacing</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div id="proj-page-cad" class="proj-page">
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-card-image"><img src="expandable-table.png" alt="Wall-Mounted Expandable Table" onerror="this.parentElement.textContent='🪑';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Wall-Mounted Expandable Table</h3>
+                <p class="project-card-desc">
+                  Designed and fabricated a space-saving, wall-mounted expandable table using SolidWorks.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">SolidWorks</span>
+                  <span class="pill pill-tech">3D Modeling</span>
+                  <span class="pill pill-tech">Fabrication</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="handheld-drill.png" alt="Handheld Drill Design" onerror="this.parentElement.textContent='🛠️';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Handheld Drill with Gear Transmission</h3>
+                <p class="project-card-desc">
+                  Modeled a handheld drill, including its gear transmission system, using Solid Edge.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Solid Edge</span>
+                  <span class="pill pill-tech">Gear Design</span>
+                  <span class="pill pill-tech">Mechanical Design</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="jig-fabrication.png" alt="Production JIGs" onerror="this.parentElement.textContent='🧰';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">Production JIGs (MAS)</h3>
+                <p class="project-card-desc">
+                  Designed and fabricated JIGs as line-side solutions during my tenure at MAS, using an Ultimaker 3D printer, 3-axis CNC, and laser cutting for rapid prototyping and fabrication.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">JIG Design</span>
+                  <span class="pill pill-tech">Ultimaker 3D Printing</span>
+                  <span class="pill pill-tech">3-Axis CNC</span>
+                  <span class="pill pill-tech">Laser Cutting</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card-image"><img src="house-plan-revit.png" alt="3D House Plan in Revit" onerror="this.parentElement.textContent='🏠';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">3D House Plan Model</h3>
+                <p class="project-card-desc">
+                  Built a full 3D model of a house plan using Revit Architecture.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">Revit Architecture</span>
+                  <span class="pill pill-tech">3D Modeling</span>
+                  <span class="pill pill-tech">Architectural Design</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div id="proj-page-software" class="proj-page">
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-card-image"><img src="cla-platform.png" alt="CLA Evaluation Platform" onerror="this.parentElement.textContent='💻';"></div>
+              <div class="project-card-body">
+                <h3 class="project-card-title">CLA Evaluation Platform</h3>
+                <p class="project-card-desc">
+                  Role-aware React web application built for the Colombo Leadership Academy for structured evaluation and reporting.
+                </p>
+                <div class="pill-row">
+                  <span class="pill pill-tech">React</span>
+                  <span class="pill pill-tech">Full-Stack</span>
+                  <span class="pill pill-tech">Web App</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-pagination">
+        <span id="proj-page-indicator">Page 1 of 4 — Automation & Robotics</span>
+        <a href="#" id="proj-next-link">Next: Electronics & Embedded →</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <div class="contact-header">
+        <div><h2 class="contact-title">Let's Connect</h2></div>
+        <p class="contact-subtitle"></p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-main">
+          <div class="contact-highlight">
+            <span class="icon">🚀</span>
+            <span>Currently open for opportunities in Industrial Automation, PLC Programming, Embedded Systems, Robotics and Mechatronics.</span>
+          </div>
+        </div>
+
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-card-label"><span class="icon">✉️</span><span>Email</span></div>
+            <div class="contact-card-value"><a href="mailto:tachila43@gmail.com">tachila43@gmail.com</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-label"><span class="icon">📞</span><span>Phone</span></div>
+            <div class="contact-card-value">+94 71 752 9589</div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-label"><span class="icon">📍</span><span>Location</span></div>
+            <div class="contact-card-value">Kandy, Sri Lanka</div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-label"><span class="icon">🐙</span><span>GitHub</span></div>
+            <div class="contact-card-value"><a href="https://github.com/achila23" target="_blank">github.com/achila23</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-label"><span class="icon">💼</span><span>LinkedIn</span></div>
+            <div class="contact-card-value"><a href="https://www.linkedin.com/in/achila-thilakarathna-a05a95195" target="_blank">linkedin.com/in/achila-thilakarathna-a05a95195</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-footer"></div>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabContents = {
+        skills: document.getElementById("tab-skills"),
+        experience: document.getElementById("tab-experience"),
+        certifications: document.getElementById("tab-certifications"),
+        education: document.getElementById("tab-education"),
+      };
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const target = this.getAttribute("data-tab-target");
+          tabButtons.forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          Object.keys(tabContents).forEach((key) => tabContents[key].classList.remove("active"));
+          tabContents[target].classList.add("active");
+        });
+      });
+
+      /* EXPERIENCE SUB-PAGES (MAS / ExcelTech) */
+      const expOrder = ["mas", "exceltech"];
+      const expLabels = {
+        mas: "MAS Intimates Linear Clothing",
+        exceltech: "ExcelTech OU (Pvt) Ltd.",
+      };
+      const expSubButtons = document.querySelectorAll(".exp-subtab-button");
+      const expPages = {
+        mas: document.getElementById("exp-page-mas"),
+        exceltech: document.getElementById("exp-page-exceltech"),
+      };
+      const expIndicator = document.getElementById("exp-page-indicator");
+      const expNextLink = document.getElementById("exp-next-link");
+
+      function showExpPage(target) {
+        expSubButtons.forEach((b) => b.classList.toggle("active", b.getAttribute("data-exp-target") === target));
+        Object.keys(expPages).forEach((key) => expPages[key].classList.toggle("active", key === target));
+        const idx = expOrder.indexOf(target);
+        const total = expOrder.length;
+        expIndicator.textContent = "Page " + (idx + 1) + " of " + total + " — " + expLabels[target];
+        const nextTarget = expOrder[(idx + 1) % total];
+        expNextLink.textContent = "Next: " + expLabels[nextTarget] + " →";
+        expNextLink.setAttribute("data-exp-next", nextTarget);
+      }
+
+      expSubButtons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          showExpPage(this.getAttribute("data-exp-target"));
+        });
+      });
+
+      if (expNextLink) {
+        expNextLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          showExpPage(this.getAttribute("data-exp-next"));
+        });
+      }
+
+      /* PROJECT SUB-PAGES (Automation / Electronics / CAD / Software) */
+      const projOrder = ["automation", "electronics", "cad", "software"];
+      const projLabels = {
+        automation: "Automation & Robotics",
+        electronics: "Electronics & Embedded",
+        cad: "CAD/CAM & Mechanical Design",
+        software: "Software & Web",
+      };
+      const projSubButtons = document.querySelectorAll(".proj-subtab-button");
+      const projPages = {
+        automation: document.getElementById("proj-page-automation"),
+        electronics: document.getElementById("proj-page-electronics"),
+        cad: document.getElementById("proj-page-cad"),
+        software: document.getElementById("proj-page-software"),
+      };
+      const projIndicator = document.getElementById("proj-page-indicator");
+      const projNextLink = document.getElementById("proj-next-link");
+
+      function showProjPage(target) {
+        projSubButtons.forEach((b) => b.classList.toggle("active", b.getAttribute("data-proj-target") === target));
+        Object.keys(projPages).forEach((key) => projPages[key].classList.toggle("active", key === target));
+        const idx = projOrder.indexOf(target);
+        const total = projOrder.length;
+        projIndicator.textContent = "Page " + (idx + 1) + " of " + total + " — " + projLabels[target];
+        const nextTarget = projOrder[(idx + 1) % total];
+        projNextLink.textContent = "Next: " + projLabels[nextTarget] + " →";
+        projNextLink.setAttribute("data-proj-next", nextTarget);
+      }
+
+      projSubButtons.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          showProjPage(this.getAttribute("data-proj-target"));
+        });
+      });
+
+      if (projNextLink) {
+        projNextLink.addEventListener("click", function (e) {
+          e.preventDefault();
+          showProjPage(this.getAttribute("data-proj-next"));
+        });
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      const heroSection = document.querySelector(".hero");
+      const projectSections = document.querySelectorAll(".projects-section");
+      const infoSection = document.querySelector(".info-section");
+      const contactSection = document.querySelector(".contact-section");
+
+      if (heroSection) observer.observe(heroSection);
+      projectSections.forEach((s) => observer.observe(s));
+      if (infoSection) observer.observe(infoSection);
+      if (contactSection) observer.observe(contactSection);
+    });
+  </script>
+</body>
+</html>
