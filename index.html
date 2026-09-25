@@ -35,6 +35,8 @@
 
     html, body { height: 100%; }
 
+    html { overflow-x: hidden; }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top left, #bbbcf7 0, #8a8afd 35%);
@@ -46,9 +48,11 @@
       display: flex;
       justify-content: center;
       scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
     }
 
-    .page-wrapper { width: 100%; max-width: 1100px; margin: auto; }
+    .page-wrapper { width: 100%; max-width: 1100px; margin: auto; min-width: 0; }
 
     .nav {
       position: sticky;
@@ -121,7 +125,7 @@
 
     .hero.visible { opacity: 1; transform: translateY(0); }
 
-    .hero-left { display: flex; flex-direction: column; gap: 20px; }
+    .hero-left { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 
     .badge {
       display: inline-flex;
@@ -145,8 +149,8 @@
       box-shadow: 0 0 10px rgba(34, 34, 197, 0.7);
     }
 
-    .hero-name { font-size: clamp(2.2rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.1; }
-    .hero-role { font-size: 1.1rem; color: var(--text-muted); margin-top: 4px; }
+    .hero-name { font-size: clamp(1.8rem, 7vw, 2.8rem); font-weight: 800; line-height: 1.1; word-break: break-word; }
+    .hero-role { font-size: clamp(0.95rem, 3vw, 1.1rem); color: var(--text-muted); margin-top: 4px; }
     .hero-about { font-size: 0.98rem; line-height: 1.6; color: var(--text-muted); max-width: 600px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 
@@ -159,6 +163,7 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       text-decoration: none;
       transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
@@ -198,12 +203,13 @@
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
+      min-width: 0;
     }
 
     .projects-section.visible { opacity: 1; transform: translateY(0); }
 
     .projects-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
-    .projects-title { font-size: 1.5rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .projects-title { font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 700; color: var(--deep-blue-accent-soft); }
     .projects-subtitle { font-size: 0.95rem; color: var(--deep-blue-text-muted); max-width: 420px; }
 
     .projects-grid {
@@ -259,6 +265,7 @@
       color: var(--deep-blue-text-main);
       border: 1px solid rgba(73, 52, 211, 0.7);
       white-space: nowrap;
+      max-width: 100%;
     }
 
     .pill-tech { background: rgba(8, 5, 46, 0.95); color: var(--deep-blue-text-main); border-color: rgba(74, 79, 222, 0.9); }
@@ -290,11 +297,12 @@
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
       color: var(--deep-blue-text-main);
+      min-width: 0;
     }
 
     .info-section.visible { opacity: 1; transform: translateY(0); }
     .info-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-    .info-title { font-size: 1.5rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .info-title { font-size: clamp(1.2rem, 4vw, 1.5rem); font-weight: 700; color: var(--deep-blue-accent-soft); }
     .info-subtitle { font-size: 0.95rem; color: var(--deep-blue-text-muted); max-width: 360px; }
 
     .info-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 28px; margin-top: 8px; }
@@ -461,11 +469,12 @@
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
+      min-width: 0;
     }
 
     .contact-section.visible { opacity: 1; transform: translateY(0); }
     .contact-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-    .contact-title { font-size: 1.6rem; font-weight: 700; color: var(--deep-blue-accent-soft); }
+    .contact-title { font-size: clamp(1.3rem, 4vw, 1.6rem); font-weight: 700; color: var(--deep-blue-accent-soft); }
     .contact-subtitle { font-size: 0.95rem; color: #a7b4f3; max-width: 380px; }
 
     .contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.4fr); gap: 22px; align-items: stretch; }
@@ -536,8 +545,32 @@
       body { padding: 16px; }
       .hero { grid-template-columns: 1fr; padding: 20px; }
       .hero-right { order: -1; }
-      .nav { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .nav { flex-direction: column; gap: 8px; align-items: flex-start; padding: 12px 16px; }
+      .nav-links { gap: 12px 16px; width: 100%; }
       .projects-section, .info-section, .contact-section { padding: 20px; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; }
+      .info-tabs { flex-direction: row; flex-wrap: wrap; }
+      .info-tabs .tab-button { flex: 1 1 auto; justify-content: center; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .nav { border-radius: 18px; padding: 12px; }
+      .nav-title { font-size: 0.9rem; }
+      .nav-links { font-size: 0.85rem; gap: 10px 14px; }
+      .hero, .projects-section, .info-section, .contact-section { padding: 16px; border-radius: 14px; }
+      .hero-about { font-size: 0.92rem; }
+      .badge { font-size: 0.68rem; padding: 5px 10px; }
+      .profile-card { max-width: 200px; }
+      .projects-grid { grid-template-columns: 1fr; gap: 16px; }
+      .project-card { min-height: unset; }
+      .pill { white-space: normal; font-size: 0.7rem; }
+      .exp-subtab-button, .proj-subtab-button { font-size: 0.78rem; padding: 6px 12px; }
+      .info-tabs .tab-button { font-size: 0.85rem; padding: 8px 12px; }
+      .tab-button span.label { gap: 6px; }
+      .exp-pagination, .proj-pagination { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .contact-card-value, .contact-card-value a { word-break: break-word; }
     }
   </style>
 </head>
@@ -709,9 +742,7 @@
           <!-- Certifications -->
           <div id="tab-certifications" class="tab-content">
             <h3 class="tab-title">Certifications & Short Courses</h3>
-            <!-- <p class="tab-description">Click any name below to open the certificate where available.</p> -->
             <ul class="custom-list">
-              <!-- <li><div><strong><a href="https://www.coursera.org/account/accomplishments/verify/W6KFZJBW2DK4" target="_blank" rel="noopener noreferrer">Rapid Prototyping in Engineering Design – Coursera</a></strong></div></li> -->
               <li><div><strong>Certificate in Graphic Designing</strong><br />The Open University of Sri Lanka</div></li>
               <li><div><strong>Short Course on Revit Architecture</strong><br />The Open University of Sri Lanka</div></li>
               <li><div><strong>Short Course on Effective Use of AutoCAD for Engineering Drawings</strong><br />The Open University of Sri Lanka</div></li>
@@ -961,7 +992,7 @@
             </article>
           </div>
         </div>
-
+      </div>
 
       <div class="proj-pagination">
         <span id="proj-page-indicator">Page 1 of 3 — Automation & Robotics</span>
@@ -1070,20 +1101,18 @@
         });
       }
 
-      /* PROJECT SUB-PAGES (Automation / Electronics / CAD / Software) */
-      const projOrder = ["automation", "electronics", "cad", "software"];
+      /* PROJECT SUB-PAGES (Automation / Electronics / CAD) */
+      const projOrder = ["automation", "electronics", "cad"];
       const projLabels = {
         automation: "Automation & Robotics",
         electronics: "Electronics & Embedded",
         cad: "CAD/CAM & Mechanical Design",
-        software: "Software & Web",
       };
       const projSubButtons = document.querySelectorAll(".proj-subtab-button");
       const projPages = {
         automation: document.getElementById("proj-page-automation"),
         electronics: document.getElementById("proj-page-electronics"),
         cad: document.getElementById("proj-page-cad"),
-        software: document.getElementById("proj-page-software"),
       };
       const projIndicator = document.getElementById("proj-page-indicator");
       const projNextLink = document.getElementById("proj-next-link");
